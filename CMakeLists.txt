@@ -9,7 +9,6 @@ add_compile_definitions(DSpico
   PICO_STACK_SIZE=0x600
   PICO_CORE1_STACK_SIZE=0x400
   ENABLE_R4_MODE
-  #DSPICO_ENABLE_WRFUXXED # This macro enables the WRFUXXED exploit to work.
   # ENABLE_PREVENT_DSI_AUTOBOOT # meant to be used with WRFU, doesn't work properly on the 3ds
 )
 
@@ -95,6 +94,12 @@ endif()
 if(EXISTS "${CMAKE_SOURCE_DIR}/roms/ntrboot.nds" AND EXISTS "${CMAKE_SOURCE_DIR}/roms/ntrbootdsi.nds")
   target_compile_definitions(DSpico PRIVATE
     ENABLE_NTRBOOT_CONSOLE_TYPE_DETECTION # This macro enables the firmware to detect if when the cart is being read in a ntrboot context, the console reading it is a 3DS or a DSi, and switch rom accordingly.
+  )
+endif()
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/data/uartBufv060.bin")
+  target_compile_definitions(DSpico PRIVATE
+    DSPICO_ENABLE_WRFUXXED # This macro enables the WRFUXXED exploit to work.
   )
 endif()
 
